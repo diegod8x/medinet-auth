@@ -3,12 +3,12 @@ import {
   HttpException,
   HttpStatus,
   UnauthorizedException,
-} from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { User } from '@/api/user/user.entity';
-import * as bcrypt from 'bcryptjs';
+} from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { User } from "@/api/user/user.entity";
+import * as bcrypt from "bcryptjs";
 
 @Injectable()
 export class AuthHelper {
@@ -55,7 +55,7 @@ export class AuthHelper {
     const decoded: unknown = this.jwt.verify(token);
 
     if (!decoded) {
-      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+      throw new HttpException("Forbidden", HttpStatus.FORBIDDEN);
     }
 
     const user: User = await this.validateUser(decoded);

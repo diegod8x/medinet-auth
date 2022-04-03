@@ -1,9 +1,9 @@
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '@/api/user/user.entity';
-import { Repository } from 'typeorm';
-import { RegisterDto, LoginDto } from './auth.dto';
-import { AuthHelper } from './auth.helper';
+import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { User } from "@/api/user/user.entity";
+import { Repository } from "typeorm";
+import { RegisterDto, LoginDto } from "./auth.dto";
+import { AuthHelper } from "./auth.helper";
 
 @Injectable()
 export class AuthService {
@@ -18,7 +18,7 @@ export class AuthService {
     let user: User = await this.repository.findOne({ where: { email } });
 
     if (user) {
-      throw new HttpException('Conflict', HttpStatus.CONFLICT);
+      throw new HttpException("Conflict", HttpStatus.CONFLICT);
     }
 
     user = new User();
@@ -35,7 +35,7 @@ export class AuthService {
     const user: User = await this.repository.findOne({ where: { email } });
 
     if (!user) {
-      throw new HttpException('No user found', HttpStatus.NOT_FOUND);
+      throw new HttpException("No user found", HttpStatus.NOT_FOUND);
     }
 
     const isPasswordValid: boolean = this.helper.isPasswordValid(
@@ -44,7 +44,7 @@ export class AuthService {
     );
 
     if (!isPasswordValid) {
-      throw new HttpException('No user found', HttpStatus.NOT_FOUND);
+      throw new HttpException("No user found", HttpStatus.NOT_FOUND);
     }
 
     this.repository.update(user.id, { lastLoginAt: new Date() });
